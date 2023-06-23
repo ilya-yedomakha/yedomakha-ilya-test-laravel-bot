@@ -49,29 +49,13 @@ class DishCategoryCallbackHandler
         $chatId = $message->getChat()->getId();
         $data = $callbackQuery->getData();
         $data_arr = json_decode($data, true);
-        $companyId = $data_arr['id'];
+        $addressId = $data_arr['id'];
         $cart = $this->telegramMessageCartResolver->resolve($message);
-        $cartCompanyId = $cart->getCompanyId();
+        $companyId = $cart->getCompanyId();
 
-        $data2 = [
-            'chat_id' => $chatId,
-            'text' => 'Company: '.$this->dotsProvider->getOneCompany($companyId)['name'],
-        ];
 
-        if($cartCompanyId != $companyId && $cart->getItems() != []){
-            $Keyboard = $this->cartSender->getYesNoCityKeyboard();
+        $this->cartService->setAddressId($cart, $addressId);
 
-            $data = [
-                'chat_id' => $chatId,
-                'text'    => trans('bots.requireChangeCompany'),
-                'reply_markup' => $Keyboard,
-            ];
-            $this->telegramSender->sendData($data2);
-            return $this->telegramSender->sendData($data);
-        }
-        $this->cartService->setCompanyId($cart, $companyId);
-
-        $this->telegramSender->sendData($data2);
         return $this->dishCategorySender->send($chatId, $companyId);
     }
 

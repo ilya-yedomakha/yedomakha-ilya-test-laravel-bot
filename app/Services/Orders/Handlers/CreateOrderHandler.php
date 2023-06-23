@@ -72,11 +72,12 @@ class CreateOrderHandler
     {
         $companyId = $cartDTO->getCompanyId();
 
-        $companyAddresses = $this->dotsService->getCompanyInfo($companyId)['addresses'];
+        $companyAddresseId = $cartDTO->getAddressId();
+        var_dump($companyAddresseId);
         return [
             'cityId' => $cartDTO->getCityId(),
             'companyId' => $companyId,
-            'companyAddressId' => $companyAddresses[0]['id'],
+            'companyAddressId' => $companyAddresseId,
             'userName' => $cartDTO->getUser()->getName(),
             'userPhone' => $cartDTO->getUser()->getPhone(),
             'deliveryType' => OrderDTO::DELIVERY_PICKUP,

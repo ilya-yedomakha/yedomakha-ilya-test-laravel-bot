@@ -10,6 +10,7 @@ class CartDTO
     private $user;
     private $cityId;
     private $companyId;
+    private $addressId;
 
     private function __construct(
         string $key,
@@ -17,12 +18,14 @@ class CartDTO
         CartUserDTO $user,
         string $companyId,
         string $cityId,
+        string $addressId
     ) {
         $this->key = $key;
         $this->items = $items;
         $this->user = $user;
         $this->companyId = $companyId;
         $this->cityId = $cityId;
+        $this->addressId = $addressId;
     }
 
     public static function fromArray(array $data): CartDTO
@@ -36,6 +39,7 @@ class CartDTO
             CartUserDTO::fromArray($data['user'] ?? []),
             $data['company_id'] ?? ' ',
             $data['city_id'] ?? ' ',
+            $data['address_id'] ?? ''
         );
     }
 
@@ -50,6 +54,7 @@ class CartDTO
             'user' => $this->getUser()->toArray(),
             'company_id' => $this->getCompanyId(),
             'city_id' => $this->getCityId(),
+            'address_id' => $this->getAddressId()
         ];
     }
 
@@ -91,6 +96,10 @@ class CartDTO
     public function clearCity(): void
     {
         $this->cityId = ' ';
+    }
+    public function clearAddressId(): void
+    {
+        $this->addressId = ' ';
     }
 
     /**
@@ -135,6 +144,14 @@ class CartDTO
     {
         $this->cityId = $cityId;
     }
+    /**
+     * @param string $addressId
+     * @return void
+     */
+    public function setAddressId(string $addressId): void
+    {
+        $this->addressId = $addressId;
+    }
 
     /**
      * @return string
@@ -142,6 +159,13 @@ class CartDTO
     public function getCityId(): string
     {
         return $this->cityId;
+    }
+    /**
+     * @return string
+     */
+    public function getAddressId()
+    {
+        return $this->addressId;
     }
 
 }

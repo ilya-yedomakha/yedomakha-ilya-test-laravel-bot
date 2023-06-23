@@ -102,4 +102,10 @@ class CartService
         return $this->storeCart($cartDTO);
     }
 
+    public function setAddressId(CartDTO $cartDTO, string $cityId): CartDTO
+    {
+        $cartDTO->setAddressId($cityId);
+        return $this->storeCart($cartDTO);
+    }
+
 }

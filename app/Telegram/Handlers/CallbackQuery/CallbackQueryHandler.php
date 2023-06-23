@@ -34,6 +34,8 @@ class CallbackQueryHandler
             case 'city':
                 return app(CompanyHandler::class)->handle($callbackQuery);
             case 'company':
+                return app(AddressHandler::class)->handle($callbackQuery);
+            case 'address':
                 return app(DishCategoryCallbackHandler::class)->handle($callbackQuery);
             case 'cat':
                 return app(DishHandler::class)->handle($callbackQuery);

@@ -64,6 +64,7 @@ class CompanySender extends TelegramSender
 
         $items = [];
         foreach ($companies['items'] as $company) {
+//            var_dump($company['addresses']);
             $items[] = [[
                 'text' => $this->generateCompanyText($company),
                 'callback_data' => '{"type": "company", "id":"'. $company['id'] . '"}',
